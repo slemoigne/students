@@ -8,7 +8,7 @@
 				echo $this->Form->input('first_name');
 				echo $this->Form->input('birth_date', array(
 					'dateFormat' => 'DMY',
-					'minYear' => date('Y') - 80,
+					'minYear' => date('Y') - 110,
 					'maxYear' => date('Y') - 3,
 				));
 			?>

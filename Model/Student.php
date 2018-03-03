@@ -26,10 +26,16 @@ class Student extends AppModel {
 			'message' => 'First name is required (max length 50 characters).'
 		),
 		'birth_date' => array(
-			'rule' => array('date'),
-			'required' => true,
-			'allowEmpty' => false,
-			'message' => 'Date is not valid.'
+			'date' => array(
+				'rule' => array('date'),
+				'required' => true,
+				'allowEmpty' => false,
+				'message' => 'Date is required.'
+			),
+			'year' => array(
+				'rule' => array('maxYear', -3),
+				'message' => 'The maximum allowed date is exceeded.'
+			)
 		)
 	);
 
@@ -44,5 +50,25 @@ class Student extends AppModel {
 			'exclusive' => true // One request to delete all reviews for more performance
 		)
 	);
+
+	/**
+	 * maxYear
+	 *
+	 * @param array $check
+	 * @param int $inc
+	 */
+	public function maxYear($check, $inc) {
+		$yearInc = date('Y') + $inc;
+
+		$values = array_values($check);
+		if (!isset($values[0])) {
+			throw new LogicException('Failed to get index 0 of values');
+		}
+
+		// Note : If date bigger than system support, year equal 1970 => Not critical
+		$yearValue = date('Y', strtotime($values[0]));
+
+		return $yearInc >= $yearValue;
+	}
 
 }
