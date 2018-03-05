@@ -1,7 +1,6 @@
 # User specific & automatically generated files #
 #################################################
 /Config/database.php
-/tmp
 /Vendor
 /Plugin
 /build
